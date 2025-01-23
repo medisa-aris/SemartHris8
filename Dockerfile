@@ -14,7 +14,8 @@ RUN apt-get update
 RUN apt-get install php7.2 php7.2-cli php7.2-curl php7.2-intl php7.2-mbstring php7.2-xml php7.2-zip \
     php7.2-bcmath php7.2-cli php7.2-fpm php7.2-imap php7.2-json php7.2-opcache php7.2-apcu php7.2-xmlrpc \
     php7.2-bz2 php7.2-common php7.2-gd php7.2-ldap php7.2-pgsql php7.2-readline php7.2-soap php7.2-tidy php7.2-xsl php-apcu -y
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.27
 RUN apt-get remove --purge -y software-properties-common python-software-properties && \
     apt-get autoremove -y && \
     apt-get clean && \
@@ -62,7 +63,7 @@ RUN chmod 777 /run/php/php7.2-fpm.sock
 # Setup Application
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-RUN composer global require "hirak/prestissimo:~0.3" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative -vvv \
+RUN composer global require "hirak/prestissimo:~0.3.10" --prefer-dist --no-progress --no-suggest --optimize-autoloader --classmap-authoritative -vvv \
 && composer clear-cache
 
 WORKDIR /semarthris
